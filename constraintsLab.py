@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from constraint import Problem, AllDifferentConstraint, ExactSumConstraint
+from constraint import Problem, AllDifferentConstraint, ExactSumConstraint, InSetConstraint
 
 
 # Task 1
-def addTravellerConstraint(problem, traveller, time):
-    problem.addConstraint(lambda x: (x == time), ["t_" + traveller])
+# def addTravellerConstraint(problem, traveller, time):
+#     problem.addConstraint(lambda x: (x == time), ["t_" + traveller])
 
 
 def Travellers(List):
@@ -41,12 +41,13 @@ def Travellers(List):
     for pair in List:
         traveller = pair[0]
         time = pair[1]
-        addTravellerConstraint(problem, traveller, time)
+        # addTravellerConstraint(problem, traveller, time)
+        problem.addConstraint(InSetConstraint([time]), ["t_" + traveller])
     solns = problem.getSolutions()
     return solns
 
 
-# print(Travellers([["olga", "2:30"]]))
+# print(Travellers([["olga", "5:30"]]))
 
 
 # Task 2
@@ -56,8 +57,8 @@ def CommonSum(n):
 
 
 # Task 3
-def add_pairList_constraints(problem, v, i):
-    problem.addConstraint(lambda x: (x == i), [v])
+# def add_pairList_constraints(problem, v, i):
+#     problem.addConstraint(lambda x: (x == i), [v])
 
 
 def msqList(m, pairList):
@@ -80,7 +81,8 @@ def msqList(m, pairList):
             v = pair[0]
             i = pair[1]
             if 0 <= v < m ** 2 and 1 <= i <= m ** 2:
-                add_pairList_constraints(problem, v, i)
+                # add_pairList_constraints(problem, v, i)
+                problem.addConstraint(InSetConstraint([i]), [v])
     solns = problem.getSolutions()
     # for i in range(len(solns)):
     #     print(solns[i])
@@ -88,7 +90,7 @@ def msqList(m, pairList):
 
 
 # print(msqList(3, []))
-# print(msqList(4,[[0,13],[1,12],[2,7]]))
+# print(msqList(4, [[0, 13], [1, 12], [2, 7]]))
 
 
 # Task 4
@@ -146,13 +148,15 @@ def pmsList(m, pairList):
             v = pair[0]
             i = pair[1]
             if 0 <= v < m ** 2 and 1 <= i <= m ** 2:
-                add_pairList_constraints(problem, v, i)
+                # add_pairList_constraints(problem, v, i)
+                problem.addConstraint(InSetConstraint([i]), [v])
     solns = problem.getSolutions()
     # for i in range(len(solns)):
     #     print(solns[i])
     return solns
 
-# print(pmsList(3,[]))
+
+# print(pmsList(3, []))
 # print(pmsList(4, [[0, 13], [1, 12], [2, 7]]))
 
 # Debug
